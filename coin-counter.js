@@ -8,30 +8,38 @@
 // };
 
 // console.log(countDown(10));
-
-const coinCounter = (amount, coins, arr, n) => {
-  if (isNaN(amount)) {
-    return;
-  }
-  if (amount <= 0) {
-    return arr;
-  } else if (amount >= coins[0]) {
-    arr[n][1]++;
-    return coinCounter(amount - coins[0], coins, arr, n);
-  } else {
-    n++;
-    return coinCounter(amount, coins.slice(1), arr, n);
-  }
+const coinCounter = (coins) => {
+  return (amountCounter = (amount, arr, n) => {
+    if (isNaN(amount)) {
+      return;
+    }
+    if (amount <= 0) {
+      return arr;
+    } else if (amount >= coins[n]) {
+      arr[n][1]++;
+      return amountCounter(amount - coins[n], arr, n);
+    } else {
+      n++;
+      return amountCounter(amount, arr, n);
+    }
+  });
 };
 
 const arr = [
-  ["quarter", 1],
-  ["dime", 0],
-  ["nickle", 1],
-  ["penny", 4],
+  [25, "quarter", 0],
+  [10, "dime", 0],
+  [5, "nickle", 0],
+  [1, "penny", 0],
 ];
 
-console.log(coinCounter(34, [25, 10, 5, 1], arr, 0));
+const usCoins = coinCounter([25, 10, 5, 1]);
+console.log(usCoins(34, arr, 0));
+
+// function coinCounter(amount) {
+//   return function(coins) {
+//     return
+//   }
+// }
 
 // function change(amount, coins) {
 //   if (amount == 0) {
@@ -49,3 +57,14 @@ console.log(coinCounter(34, [25, 10, 5, 1], arr, 0));
 
 // console.log(change(101, [1, 5, 10, 25]));
 // 6
+
+// function welcome(salutation) {
+//   return function(yourName) {
+//     return `${salutation}! Nice to meet you, ${yourName}!`
+//   }
+// }
+
+// const heyThere = welcome("Hey there");
+
+// heyThere("Joe")
+// // "Hey there! Nice to meet you, Joe!"
